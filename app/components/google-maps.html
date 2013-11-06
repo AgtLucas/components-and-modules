@@ -52,7 +52,27 @@
         this.updateCenter(longitude);
       },
 
+      tiltChanged: function() {
+        var tilt = this.getAttribute('tilt');
+        this.map.SetTilt(+tilt);
+      },
 
+      typeChanged: function() {
+        var type = this.getAttribute('type');
+        this.map.setMapTypeId(type);
+      },
+
+      updateCenter: function(opt_lat, opt_long) {
+        this.map.setCenter(
+          new.google.maps.LatLng(
+              opt_lat !== undefined ? opt_lat : this.latitude,
+              opt_long !== undefined ? opt_long : this.longitude));
+      },
+
+      zoomChanged: function() {
+        var zoom = this.getAttribute('zomm');
+        this.map.setZoom(+zoom);
+      }
 
     });
   </script>
