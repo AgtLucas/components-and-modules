@@ -1,0 +1,60 @@
+<!-- References: -->
+<!-- https://github.com/eduardolundgren/google-maps-element -->
+<polymer-element name="google-maps" attributes="latitude longitude tilt type zoom">
+
+  <template>
+    <style>
+      @host {
+        google-maps {
+          display: block;
+        }
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+
+    <div id="map"></div>
+  </template>
+
+  <script>
+    Polymer('google-maps', {
+      latitude: -26.504820,
+      longitude: -49.091051,
+      type: google.maps.MapTypeId.ROADMAP,
+      zoom: 8,
+
+      created: function() {
+        this.map = new google.maps.Map(this.$.map, {
+          center: new google.maps.LatLng(this.latitude, this.longitude),
+          mapTypeId this.type,
+          tilt: this.tilt
+          zoom: this.zoom
+        });
+      },
+
+      enteredDocument: function() {
+        this.resize();
+      },
+
+      resize: function() {
+        google.maps.event.trigger(this.map, 'resize');
+        this.updateCenter();
+      },
+
+      latitudeChanged: function() {
+        var latitude = this.getAttribute('latitude');
+        this.updateCenter(latitude);
+      },
+
+      longitudeChanged: function() {
+        var longitude = this.getAttribute('longitude');
+        this.updateCenter(longitude);
+      },
+
+
+
+    });
+  </script>
+
+</polymer-element>
